@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<br/><br/>
+<div class="container">
+    <div class="card mb-3">
+        <div class="row g-0">
+          <div class="col-md-4">
+            <img src="{{ product.image.url }}" class="img-fluid rounded-start" alt="...">
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+                
+              <h5 class="card-title">Book Title: {{product.name}}</h5>
+              <p class="card-text">Author: {{ product.author_name }}</p>
+              <p class="card-text"><small class="text-body-secondary">Genre: {{ product.genre }}</small></p>
+              <p class="card-text"><small class="text-body-secondary">Price: {{ product.UnitPrice }}INR</small></p>
+              <br/>
+                          <div class="row justify-content-centre">
+                          <div class="col-md-2">Quantity: </div>
+                          <div class="col-md-2">
+                          <div class="input-group input-group-sm">
+                          <button class="btn btn-danger decrement" data-product-id="{{ product.id }}">-</button>
+                          <input type="number" id="quantity-{{ product.id }}" class="form-control text-center quantity-input" value="1" readonly title="Quantity">
+                          <button class="btn btn-success increment" data-product-id="{{ product.id }}">+</button>
+                          </div>
+                        </div>
+                          </div>
+                          <br/>
+                          
+              <a href="{% url 'home' %}" class="btn btn-secondary">Home</a>
+              <button type="button" value="{{ product.id }}" class="btn btn-secondary" id="add-cart">Add to Cart</button>
+            </div>
+           
+               
+          </div>
+        </div>
+    </div> 
+    </div>
+<br/><br/>
+<script>
+$(document).on('click','#add-cart', function(e) {
+    e.preventDefault();
+    
+    $.ajax({
+        type: 'POST',
+        url: '{% url "cart_add" %}',
+        data: {
+            product_id: $('#add-cart').val(),
+          // quantity:  $('#quantity-' + product_id, ).val(),
+            csrfmiddlewaretoken: '{{ csrf_token }}',
+            action: 'post'
+
+        },
+        success: function (json) {
+           // document.getElementById("cart_quantity").textContent = json.qty
+            // Handle success response as needed
+            location.reload(); // For example, reload the page after adding to cart
+        },
+        error: function (xhr, errmsg, err) {
+           
+        }
+    });
+});
+</script>
+{% endblock %}

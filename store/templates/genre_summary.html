@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<!-- Header-->
+<header class="bg-dark py-5">
+    <div class="container px-4 px-lg-5 my-5">
+        <div class="text-center text-white">
+            <h1 class="display-4 fw-bolder">Genre </h1>
+            <p class="lead fw-normal text-white-50 mb-0">Choose your world</p>
+        </div>
+    </div>
+</header>
+<div class="container">
+    <div class="row">
+        <center>
+            <div class="col-8">
+                <br/><br/>
+                {{ genres }}
+                {% for genre in genr%}
+                <a href="{% url 'genre' %}">
+                    <img class="card-img-top" src="{{genre.image.url}}" alt="..." />
+                </a>
+                <br/><br/> <br/><br/> <br/><br/> <br/><br/> <br/><br/> <br/><br/>
+                <br/><br/> <br/><br/> <br/><br/> <br/><br/> <br/><br/> <br/><br/>
+                <br/><br/> <br/><br/> <br/><br/> <br/><br/> <br/><br/> <br/><br/>
+            </div>
+        </center>
+    </div>
+</div>
+{% endblock %}
